@@ -6,7 +6,7 @@
 }
 .inputScreen {
     border: 2px solid black;
-    height: 75px;
+    height: 100px;
     width: 510px;
     max-width: 90%;
 }
@@ -29,7 +29,7 @@ button {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    max-height: 409px;
+    max-height: 512px;
     gap: 3px;
 }
 #equal {
