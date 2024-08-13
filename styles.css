@@ -1,0 +1,23 @@
+.calcBody {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+.inputScreen {
+    border: 2px solid black;
+    height: 100px;
+    width: 1000px;
+    max-width: 90%;
+}
+button {
+    height: 100px;
+    width: 100px;
+    font-size: 30px;
+}
+.numbers {
+    display: flex;
+    max-width: 350px;
+    flex-wrap: wrap;
+    gap: 3px;
+}
