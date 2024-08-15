@@ -1,14 +1,21 @@
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .calcBody {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 5px;
 }
 .inputScreen {
     border: 2px solid black;
     height: 100px;
-    width: 510px;
-    max-width: 90%;
+    width: 514px;
 }
 button {
     height: 100px;
@@ -18,20 +25,22 @@ button {
 .buttons {
     display: flex;
     justify-content: center;
+    width: 516px;
+    height: 516px;
 }
 .numbers {
     display: flex;
-    max-width: 309px;
     flex-wrap: wrap;
-    gap: 3px;
+    max-width: 308px;
 }
 .operators {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    max-height: 512px;
-    gap: 3px;
 }
 #equal {
     flex: 1;
+}
+.calcBody, .buttons, .numbers, .operators {
+    gap: 4px;
 }
