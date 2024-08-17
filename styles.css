@@ -13,14 +13,24 @@ body {
     flex-direction: column;
 }
 .inputScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
     border: 2px solid black;
-    height: 100px;
+    height: 140px;
     width: 514px;
+    padding: 5px;
+    box-sizing: border-box;
 }
 button {
     height: 100px;
     width: 100px;
     font-size: 30px;
+}
+#clear, #delete {
+    font-size: 26px;
 }
 .buttons {
     display: flex;
