@@ -21,7 +21,7 @@ body {
     border: 2px solid black;
     height: 140px;
     width: 514px;
-    padding: 5px;
+    padding: 10px;
     box-sizing: border-box;
 }
 button {
@@ -29,7 +29,7 @@ button {
     width: 100px;
     font-size: 30px;
 }
-#clear, #delete {
+#clear, #delete, #modulo, #negative {
     font-size: 26px;
 }
 .buttons {
