@@ -19,9 +19,19 @@ function subtract(arr, pos) {
 }
 
 function evaluate(str) {
-    let arr = str.split(/([+\‐×÷])/g)
+    let arr = str.split(/(\([^()]*\))|([+\‐×÷^])/g).filter(Boolean);
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i][0] === '(' && arr[i][arr[i].length -1] === ')') {
+            arr[i] = arr[i].slice(1, -1);
+            arr[i] = evaluate(arr[i]);
+        }
+        else if (arr[i][0] === '(' && arr[i][arr[i].length -1] !== ')') {
+            return "Syntax Error";
+        }
+    }
     
-    for (let i = 0; i < arr.length + 1; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '×') {
             multiply(arr, i);
             i--;
@@ -32,7 +42,7 @@ function evaluate(str) {
         }
     }
 
-    for (let i = 0; i < arr.length + 1; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '+') {
             add(arr, i);
             i--;
@@ -58,6 +68,12 @@ buttons.addEventListener('click', event => {
         else {
             if (event.target.id === "negative") {
                 expression.textContent += '-';
+            }
+            else if (event.target.id === "squareRoot") {
+                expression.textContent += "√(";
+            }
+            else if (event.target.id === "power") {
+                expression.textContent += "^(";
             }
             else {
                 expression.textContent += event.target.textContent;
