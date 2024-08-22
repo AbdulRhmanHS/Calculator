@@ -30,18 +30,49 @@ function modulo(arr, pos) {
     arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) % parseFloat(arr[pos + 1]));
 }
 
+function splitExpression(str) {
+    str += '$';
+    let arr = [];
+    let lastIndex = 0;
+    let paraIndex = 0;
+
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === '(') {
+            paraIndex += 1;
+        }
+        else if (str[i] === ')') {
+            paraIndex -= 1;
+        }
+        else if (str[i] === ')' && paraIndex === 0) {
+            arr.push(str.slice(lastIndex, i + 1));
+            lastIndex = i + 1;
+        }
+        else if ((str[i] === '+' || str[i] === '‐' || str[i] === '×' || str[i] === '÷' || str[i] === '^' || str[i] === '%') && paraIndex === 0) {
+            arr.push(str.slice(lastIndex, i));
+            arr.push(str[i]);
+            lastIndex = i + 1;
+        }
+        else if (str[i] === '√' && paraIndex === 0) {
+            arr.push(str[i]);
+            lastIndex = i + 1;
+        }
+        else if (str[i] === '$') {
+            arr.push(str.slice(lastIndex, i));
+        }
+    }
+
+    return paraIndex === 0 ? arr : "Syntax Error";
+}
+
 
 function evaluate(str) {
-    let arr = str.split(/(\([^()]*\))|([+\‐×÷^%])/g).filter(Boolean);
+    let arr = splitExpression(str);
 
     // First the precedence of the parentheses.
     for (let i = 0; i < arr.length; i++) {
         if (arr[i][0] === '(' && arr[i][arr[i].length -1] === ')') {
             arr[i] = arr[i].slice(1, -1);
             arr[i] = evaluate(arr[i]);
-        }
-        else if (arr[i][0] === '(' && arr[i][arr[i].length -1] !== ')' || arr[i][0] !== '(' && arr[i][arr[i].length -1] === ')') {
-            return "Syntax Error";
         }
     }
 
@@ -85,7 +116,7 @@ function evaluate(str) {
         }
     }
 
-    return arr[0];
+    return arr;
 }
 
 // Buttons and equal sign function.
