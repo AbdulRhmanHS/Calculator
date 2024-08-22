@@ -31,7 +31,7 @@ function modulo(arr, pos) {
 }
 
 function splitExpression(str) {
-    str += '$';
+    str += '$'; // To mark the ending of the string.
     let arr = [];
     let lastIndex = 0;
     let paraIndex = 0;
@@ -116,7 +116,7 @@ function evaluate(str) {
         }
     }
 
-    return arr;
+    return arr !== "Syntax Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr;
 }
 
 // Buttons and equal sign function.
