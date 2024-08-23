@@ -7,7 +7,15 @@ function multiply(arr, pos) {
 }
 
 function divide(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) / parseFloat(arr[pos + 1]));
+    if (arr[pos + 1] > 0 || arr[pos + 1] < 0) {
+        arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) / parseFloat(arr[pos + 1]));
+    }
+    else if (Number(arr[pos + 1]) === 0 && arr[pos + 1] !== '') {
+        arr.splice(0, arr.length, "Math Error");
+    }
+    else {
+        arr.splice(0, arr.length, "Syntax Error");
+    }
 }
 
 function add(arr, pos) {
@@ -23,29 +31,46 @@ function power(arr, pos) {
 }
 
 function squareRoot(arr, pos) {
-    arr.splice(pos, 2, Math.sqrt(parseFloat(arr[pos + 1])));
+    if (arr[pos + 1] >= 0) {
+        arr.splice(pos, 2, Math.sqrt(parseFloat(arr[pos + 1])));
+    }
+    else if (arr[pos + 1] < 0) {
+        arr.splice(0, arr.length, "Math Error");
+    }
+    else {
+        arr.splice(0, arr.length, "Syntax Error");
+    }
 }
 
 function modulo(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) % parseFloat(arr[pos + 1]));
+    if (arr[pos + 1] > 0 || arr[pos + 1] < 0) {
+        arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) % parseFloat(arr[pos + 1]));
+    }
+    else if (Number(arr[pos + 1]) === 0 && arr[pos + 1] !== '') {
+        arr.splice(0, arr.length, "Math Error");
+    }
+    else {
+        arr.splice(0, arr.length, "Syntax Error");
+    }
 }
 
 function splitExpression(str) {
     str += '$'; // To mark the ending of the string.
     let arr = [];
     let lastIndex = 0;
-    let paraIndex = 0;
+    let paraIndex = 0; // Zero means no parentheses or all of them are closed.
 
     for (let i = 0; i < str.length; i++) {
         if (str[i] === '(') {
             paraIndex += 1;
         }
-        else if (str[i] === ')') {
-            paraIndex -= 1;
-        }
-        else if (str[i] === ')' && paraIndex === 0) {
+        else if (str[i] === ')' && paraIndex === 1) {
             arr.push(str.slice(lastIndex, i + 1));
             lastIndex = i + 1;
+            paraIndex -= 1;
+        }
+        else if (str[i] === ')') {
+            paraIndex -= 1;
         }
         else if ((str[i] === '+' || str[i] === '‐' || str[i] === '×' || str[i] === '÷' || str[i] === '^' || str[i] === '%') && paraIndex === 0) {
             arr.push(str.slice(lastIndex, i));
@@ -56,12 +81,12 @@ function splitExpression(str) {
             arr.push(str[i]);
             lastIndex = i + 1;
         }
-        else if (str[i] === '$') {
+        else if (str[i] === '$' && lastIndex !== i) {
             arr.push(str.slice(lastIndex, i));
         }
     }
 
-    return paraIndex === 0 ? arr : "Syntax Error";
+    return paraIndex === 0 ? arr : ["Syntax Error"];
 }
 
 
@@ -116,7 +141,10 @@ function evaluate(str) {
         }
     }
 
-    return arr !== "Syntax Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr;
+    if (isNaN(Number(arr[0])) && arr[0] !== "Math Error") arr.splice(0, arr.length, "Syntax Error"); // For most syntax errors;
+
+    // Reducing the number of digits after the decimal point.
+    return arr[0] !== "Syntax Error" && arr[0] !== "Math Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr[0];
 }
 
 // Buttons and equal sign function.
