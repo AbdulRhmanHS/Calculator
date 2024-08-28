@@ -3,14 +3,14 @@ const result = document.querySelector('.result');
 const buttons = document.querySelector('.buttons');
 
 function multiply(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) * parseFloat(arr[pos + 1]));
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) * parseFloat(Number(arr[pos + 1])));
 }
 
 function divide(arr, pos) {
-    if (arr[pos + 1] > 0 || arr[pos + 1] < 0) {
-        arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) / parseFloat(arr[pos + 1]));
+    if (parseFloat(arr[pos + 1]) !== 0) {
+        arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) / parseFloat(Number(arr[pos + 1])));
     }
-    else if (Number(arr[pos + 1]) === 0 && arr[pos + 1] !== '') {
+    else if (parseFloat(arr[pos + 1]) === 0) {
         arr.splice(0, arr.length, "Math Error");
     }
     else {
@@ -19,20 +19,20 @@ function divide(arr, pos) {
 }
 
 function add(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) + parseFloat(arr[pos + 1]));
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) + parseFloat(Number(arr[pos + 1])));
 }
 
 function subtract(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) - parseFloat(arr[pos + 1]));
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) - parseFloat(Number(arr[pos + 1])));
 }
 
 function power(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) ** parseFloat(arr[pos + 1]));
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) ** parseFloat(Number(arr[pos + 1])));
 }
 
 function squareRoot(arr, pos) {
     if (arr[pos + 1] >= 0) {
-        arr.splice(pos, 2, Math.sqrt(parseFloat(arr[pos + 1])));
+        arr.splice(pos, 2, Math.sqrt(parseFloat(Number(arr[pos + 1]))));
     }
     else if (arr[pos + 1] < 0) {
         arr.splice(0, arr.length, "Math Error");
@@ -73,7 +73,7 @@ function splitExpression(str) {
             paraIndex -= 1;
         }
         else if ((str[i] === '+' || str[i] === '‐' || str[i] === '×' || str[i] === '÷' || str[i] === '^' || str[i] === '%') && paraIndex === 0) {
-            arr.push(str.slice(lastIndex, i));
+            if (lastIndex !== i) arr.push(str.slice(lastIndex, i));
             arr.push(str[i]);
             lastIndex = i + 1;
         }
