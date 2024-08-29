@@ -2,10 +2,21 @@ const expression = document.querySelector('.expression');
 const result = document.querySelector('.result');
 const buttons = document.querySelector('.buttons');
 
+// Operators with no math errors.
 function multiply(arr, pos) {
     arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) * parseFloat(Number(arr[pos + 1])));
 }
+function add(arr, pos) {
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) + parseFloat(Number(arr[pos + 1])));
+}
+function subtract(arr, pos) {
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) - parseFloat(Number(arr[pos + 1])));
+}
+function power(arr, pos) {
+    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) ** parseFloat(Number(arr[pos + 1])));
+}
 
+// Operators with math errors.
 function divide(arr, pos) {
     if (parseFloat(arr[pos + 1]) !== 0) {
         arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) / parseFloat(Number(arr[pos + 1])));
@@ -17,19 +28,6 @@ function divide(arr, pos) {
         arr.splice(0, arr.length, "Syntax Error");
     }
 }
-
-function add(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) + parseFloat(Number(arr[pos + 1])));
-}
-
-function subtract(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) - parseFloat(Number(arr[pos + 1])));
-}
-
-function power(arr, pos) {
-    arr.splice(pos - 1, 3, parseFloat(Number(arr[pos - 1])) ** parseFloat(Number(arr[pos + 1])));
-}
-
 function squareRoot(arr, pos) {
     if (arr[pos + 1] >= 0) {
         arr.splice(pos, 2, Math.sqrt(parseFloat(Number(arr[pos + 1]))));
@@ -41,7 +39,6 @@ function squareRoot(arr, pos) {
         arr.splice(0, arr.length, "Syntax Error");
     }
 }
-
 function modulo(arr, pos) {
     if (arr[pos + 1] > 0 || arr[pos + 1] < 0) {
         arr.splice(pos - 1, 3, parseFloat(arr[pos - 1]) % parseFloat(arr[pos + 1]));
@@ -62,6 +59,10 @@ function splitExpression(str) {
 
     for (let i = 0; i < str.length; i++) {
         if (str[i] === '(') {
+            if (lastIndex !== i && paraIndex === 0) {
+                arr.push(str.slice(lastIndex, i));
+                lastIndex = i;
+            }
             paraIndex += 1;
         }
         else if (str[i] === ')' && paraIndex === 1) {
@@ -72,12 +73,8 @@ function splitExpression(str) {
         else if (str[i] === ')') {
             paraIndex -= 1;
         }
-        else if ((str[i] === '+' || str[i] === '‐' || str[i] === '×' || str[i] === '÷' || str[i] === '^' || str[i] === '%') && paraIndex === 0) {
+        else if ((str[i] === '+' || str[i] === '‐' || str[i] === '×' || str[i] === '÷' || str[i] === '^' || str[i] === '%' || str[i] === '√') && paraIndex === 0) {
             if (lastIndex !== i) arr.push(str.slice(lastIndex, i));
-            arr.push(str[i]);
-            lastIndex = i + 1;
-        }
-        else if (str[i] === '√' && paraIndex === 0) {
             arr.push(str[i]);
             lastIndex = i + 1;
         }
@@ -142,6 +139,9 @@ function evaluate(str) {
     }
 
     if (isNaN(Number(arr[0])) && arr[0] !== "Math Error") arr.splice(0, arr.length, "Syntax Error"); // For most syntax errors;
+    
+    // For getting the product of numbers multiplied by a function or a parenthese wihtout the multiplication sign.
+    if (arr.length > 1) arr.splice(0, arr.length, arr.reduce((product, number) => {return product * number}, 1)); 
 
     // Reducing the number of digits after the decimal point.
     return arr[0] !== "Syntax Error" && arr[0] !== "Math Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr[0];
