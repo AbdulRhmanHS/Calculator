@@ -23,6 +23,23 @@ body {
     width: 514px;
     padding: 12px;
     box-sizing: border-box;
+    overflow: hidden;
+}
+.expression {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+}
+.result {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: right;
+    overflow: hidden;
 }
 button {
     height: 100px;

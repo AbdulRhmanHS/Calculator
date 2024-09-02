@@ -2,6 +2,24 @@ const expression = document.querySelector('.expression');
 const result = document.querySelector('.result');
 const buttons = document.querySelector('.buttons');
 
+
+// Function to insert a character at the current caret position
+function insertAtCaret(char) {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+
+    // Create a text node with the character
+    const textNode = document.createTextNode(char);
+    range.deleteContents(); // Remove any selected text
+    range.insertNode(textNode);
+
+    // Move the cursor after the inserted character
+    range.setStartAfter(textNode);
+    range.setEndAfter(textNode);
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
+
 function isNumber(str) {
     return !isNaN(parseFloat(str)) && !isNaN(Number(str));
 }
@@ -195,9 +213,6 @@ buttons.addEventListener('click', event => {
             else if (event.target.id === "squareRoot") {
                 expression.textContent += "√(";
             }
-            else if (event.target.id === "power") {
-                expression.textContent += "^(";
-            }
             else if (event.target.id === "modulo") {
                 expression.textContent += '%';
             }
@@ -205,8 +220,42 @@ buttons.addEventListener('click', event => {
                 expression.textContent += event.target.textContent;
             }
         }
+        expression.scrollLeft = expression.scrollWidth; // Scrolls to the end after each update.
     }
     else if (event.target.textContent === '=') {
+        result.textContent = '= ' + evaluate(expression.textContent);
+    }
+});
+
+// Prevent pasting or inserting invalid characters directly into the expression.
+expression.addEventListener('keydown', (event) => {
+    // Allow navigation keys, etc.
+    const allowedKeys = [
+        'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+        'Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'Home', 'End',
+    ];
+
+    // Allow numbers, parentheses, and operators
+    const validInput = /^[0-9+\-*/().^%√]*$/;
+
+    if (!allowedKeys.includes(event.key) && !validInput.test(event.key)) {
+        event.preventDefault();
+    }
+
+    if (event.key === '-') {
+        event.preventDefault();
+        insertAtCaret('‐');
+    }
+    if (event.key === '*') {
+        event.preventDefault();
+        insertAtCaret('×');
+    }
+    if (event.key === '/') {
+        event.preventDefault();
+        insertAtCaret('÷');
+    }
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default behavior of adding a new line
         result.textContent = '= ' + evaluate(expression.textContent);
     }
 });
