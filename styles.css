@@ -12,15 +12,23 @@ body {
     align-items: center;
     flex-direction: column;
 }
+.frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 714px;
+}
 .inputScreen {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     font-family: 'Courier New', Courier, monospace;
+    background-color: rgb(34, 34, 34);
     font-size: 34px;
-    border: 2px solid black;
     height: 160px;
-    width: 514px;
+    width: 516px;
     padding: 12px;
     box-sizing: border-box;
     overflow: hidden;
@@ -42,32 +50,50 @@ body {
     overflow: hidden;
 }
 button {
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
+    padding: 0;
     font-size: 30px;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: rgb(0, 0, 0) 0 0 3px 0.1px;
 }
 #clear, #delete, #modulo, #negative {
     font-size: 26px;
 }
 .buttons {
     display: flex;
-    justify-content: center;
     width: 516px;
     height: 516px;
 }
 .numbers {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     max-width: 308px;
 }
 .operators {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 #equal {
-    flex: 1;
+    height: 198px;
+    background-color: rgb(94, 243, 144);
+    color: black;
 }
-.calcBody, .buttons, .numbers, .operators {
-    gap: 4px;
+.frame, .buttons, .numbers, .operators {
+    gap: 14px;
+}
+.inputScreen, button {
+    color: rgb(223, 223, 223);
+}
+button, .frame {
+    background-color: rgb(65, 65, 65);
+}
+#clear, #delete {
+    background-color: rgb(252, 114, 114);
 }

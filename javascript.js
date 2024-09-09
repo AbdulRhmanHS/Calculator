@@ -3,23 +3,6 @@ const result = document.querySelector('.result');
 const buttons = document.querySelector('.buttons');
 
 
-// Function to insert a character at the current caret position
-function insertAtCaret(char) {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-
-    // Create a text node with the character
-    const textNode = document.createTextNode(char);
-    range.deleteContents(); // Remove any selected text
-    range.insertNode(textNode);
-
-    // Move the cursor after the inserted character
-    range.setStartAfter(textNode);
-    range.setEndAfter(textNode);
-    selection.removeAllRanges();
-    selection.addRange(range);
-}
-
 function isNumber(str) {
     return !isNaN(parseFloat(str)) && !isNaN(Number(str));
 }
@@ -194,6 +177,23 @@ function evaluate(str) {
     
     // Reducing the number of digits after the decimal point.
     return arr[0] !== "Syntax Error" && arr[0] !== "Math Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr[0];
+}
+
+// Function to insert a character at the current caret position
+function insertAtCaret(char) {
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+
+    // Create a text node with the character
+    const textNode = document.createTextNode(char);
+    range.deleteContents(); // Remove any selected text
+    range.insertNode(textNode);
+
+    // Move the cursor after the inserted character
+    range.setStartAfter(textNode);
+    range.setEndAfter(textNode);
+    selection.removeAllRanges();
+    selection.addRange(range);
 }
 
 // Buttons and equal sign function.
