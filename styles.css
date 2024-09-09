@@ -58,6 +58,7 @@ button {
     border: 0;
     border-radius: 5px;
     box-shadow: rgb(0, 0, 0) 0 0 3px 0.1px;
+    transition: background-color 0.1s ease;
 }
 #clear, #delete, #modulo, #negative {
     font-size: 26px;
@@ -82,12 +83,21 @@ button {
     flex-wrap: wrap;
     width: 194px;
 }
+button:active {
+    background-color: black;
+}
 #equal {
     height: 196px;
     background-color: rgb(152, 216, 181);
 }
+#equal:active {
+    background-color: rgb(119, 202, 155);
+}
 #clear, #delete, #equal {
     color: black;
+}
+#clear:active, #delete:active {
+    background-color: rgb(250, 108, 108);
 }
 .frame, .buttons, .numbers, .operators {
     gap: 14px;

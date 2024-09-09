@@ -173,10 +173,11 @@ function evaluate(str) {
         }
     }
 
-    if (!isNumber(arr[0]) && arr[0] !== "Math Error") arr.splice(0, arr.length, "Syntax Error"); // Syntax error last check.
-    
+    if (!isNumber(arr[0]) && arr[0] !== "Math Error" && arr.length !== 0) arr.splice(0, arr.length, "Syntax Error"); // Syntax error last check.
+    else arr.push("Enter an expression");
+
     // Reducing the number of digits after the decimal point.
-    return arr[0] !== "Syntax Error" && arr[0] !== "Math Error" ? parseFloat(Number(arr[0]).toFixed(9)) : arr[0];
+    return arr[0] !== "Syntax Error" && arr[0] !== "Math Error" && arr[0] !== "Enter an expression" ? parseFloat(Number(arr[0]).toFixed(9)) : arr[0];
 }
 
 // Function to insert a character at the current caret position
