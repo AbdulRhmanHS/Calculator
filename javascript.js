@@ -224,7 +224,8 @@ buttons.addEventListener('click', event => {
         expression.scrollLeft = expression.scrollWidth; // Scrolls to the end after each update.
     }
     else if (event.target.textContent === '=') {
-        result.textContent = '= ' + evaluate(expression.textContent);
+        if (isNumber(evaluate(expression.textContent))) result.textContent = '= ' + evaluate(expression.textContent);
+        else result.textContent = evaluate(expression.textContent);
     }
 });
 
@@ -257,6 +258,7 @@ expression.addEventListener('keydown', (event) => {
     }
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the default behavior of adding a new line
-        result.textContent = '= ' + evaluate(expression.textContent);
+        if (isNumber(evaluate(expression.textContent))) result.textContent = '= ' + evaluate(expression.textContent);
+        else result.textContent = evaluate(expression.textContent);
     }
 });
