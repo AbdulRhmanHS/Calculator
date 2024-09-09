@@ -101,7 +101,7 @@ function splitExpression(str) {
         else if (str[i] === ')' && paraIndex === 1) {
             arr.push(str.slice(lastIndex, i + 1));
             lastIndex = i + 1;
-            if (isNumber(str[i + 1]) || str[i + 1] === '(') arr.push('×'); // Multiplying numbers after parentheses or other parentheses.
+            if (isNumber(str[i + 1]) || str[i + 1] === '(' || str[i + 1] === '√') arr.push('×'); // Multiplying numbers after parentheses or other parentheses or a square root.
             paraIndex -= 1;
         }
         else if (str[i] === ')') {
