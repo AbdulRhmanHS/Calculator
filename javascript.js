@@ -101,7 +101,8 @@ function splitExpression(str) {
         else if (str[i] === ')' && paraIndex === 1) {
             arr.push(str.slice(lastIndex, i + 1));
             lastIndex = i + 1;
-            if (isNumber(str[i + 1]) || str[i + 1] === '(' || str[i + 1] === '√') arr.push('×'); // Multiplying numbers after parentheses or other parentheses or a square root.
+            // Multiplying numbers after parentheses or other parentheses or a square root.
+            if (isNumber(str[i + 1]) || str[i + 1] === '(' || str[i + 1] === '√') arr.push('×');
             paraIndex -= 1;
         }
         else if (str[i] === ')') {
@@ -173,7 +174,8 @@ function evaluate(str) {
         }
     }
 
-    if (!isNumber(arr[0]) && arr[0] !== "Math Error" && arr.length !== 0) arr.splice(0, arr.length, "Syntax Error"); // Syntax error last check.
+    // Syntax error last check.
+    if (!isNumber(arr[0]) && arr[0] !== "Math Error" && arr.length !== 0) arr.splice(0, arr.length, "Syntax Error");
     else arr.push("Enter an expression");
 
     // Reducing the number of digits after the decimal point.

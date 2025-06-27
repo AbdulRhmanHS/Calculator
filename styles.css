@@ -7,6 +7,12 @@ body {
     flex-direction: column;
     justify-content: center;
 }
+:root {
+ --y: 80vh;
+ --x: calc(var(--y) * 0.7);
+ --gap: calc(var(--y) / 50);
+ --buttonL: calc(var(--y) / 8);  
+}
 .calcBody {
     display: flex;
     align-items: center;
@@ -17,20 +23,22 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 530px;
-    height: 714px;
+    width: var(--x);
+    min-height: var(--y);
+    padding: var(--gap);
     box-shadow: rgb(54, 54, 54) 0px 20px 30px -10px;
+    gap: var(--gap);
 }
 .inputScreen {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     font-family: 'Courier New', Courier, monospace;
     background-color: rgb(34, 34, 34);
-    font-size: 34px;
-    height: 160px;
-    width: 506px;
-    padding: 12px;
+    font-size: calc(var(--buttonL) / 2);
+    min-height: calc((var(--y) - (var(--buttonL) * 5 + var(--gap) * 4) - var(--gap)) * 1.5);
+    width: var(--x);
+    padding: calc(var(--gap) * 2);
     box-sizing: border-box;
     overflow: hidden;
 }
@@ -50,45 +58,40 @@ body {
     text-align: right;
     overflow: hidden;
 }
+.buttons {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: space-between;
+    box-sizing: border-box;
+    min-width: var(--x);
+    max-height: calc(var(--buttonL) * 5 + var(--gap) * 4);
+    gap: var(--gap);
+}
 button {
-    height: 90px;
-    width: 90px;
+    height: var(--buttonL);
+    width: calc(var(--x) / 6);
+    flex: 0 0 auto;
     padding: 0;
-    font-size: 30px;
+    font-size: calc(var(--buttonL) / 3);
     border: 0;
     border-radius: 5px;
     box-shadow: rgb(0, 0, 0) 0 0 3px 0.1px;
     transition: background-color 0.1s ease;
 }
+#equal {
+    flex-grow: 1;
+    align-self: stretch;
+    max-height: calc(var(--buttonL) * 2 + var(--gap));
+    min-height: var(--buttonL);
+    background-color: rgb(152, 216, 181);
+}
 #clear, #delete, #modulo, #negative {
-    font-size: 26px;
-}
-.buttons {
-    display: flex;
-    justify-content: center;
-    width: fit-content;
-    height: 516px;
-}
-.numbers {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 298px;
-}
-.operators {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    width: 194px;
+    font-size: calc(var(--buttonL) / 3.4);
 }
 button:active {
     background-color: black;
-}
-#equal {
-    height: 196px;
-    background-color: rgb(152, 216, 181);
 }
 #equal:active {
     background-color: rgb(119, 202, 155);
@@ -99,9 +102,6 @@ button:active {
 #clear:active, #delete:active {
     background-color: rgb(250, 108, 108);
 }
-.frame, .buttons, .numbers, .operators {
-    gap: 14px;
-}
 .inputScreen, button {
     color: rgb(223, 223, 223);
 }
@@ -110,4 +110,12 @@ button, .frame {
 }
 #clear, #delete {
     background-color: rgb(255, 154, 154);
+}
+@media (max-width: 450px) {
+    :root {
+        --x: calc(var(--y) * 0.5);
+    }
+    button, #clear, #delete, #equal, #modulo, #negative {
+        font-size: calc(var(--buttonL) / 4);
+    }
 }
