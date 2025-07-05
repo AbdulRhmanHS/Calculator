@@ -240,7 +240,7 @@ expression.addEventListener('keydown', (event) => {
     ];
 
     // Allow numbers, parentheses, and operators
-    const validInput = /^[0-9+\-*/().^%√]*$/;
+    const validInput = /^[0-9+\-*/\\().^%]*$/;
 
     if (!allowedKeys.includes(event.key) && !validInput.test(event.key)) {
         event.preventDefault();
