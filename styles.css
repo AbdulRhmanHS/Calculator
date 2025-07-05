@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'led_calculatorregular';
+    src: url('fonts/ledcalculator-webfont.woff2') format('woff2'),
+         url('fonts/ledcalculator-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html {
     height: 100%;
 }
@@ -33,7 +42,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'led_calculatorregular', Courier, monospace;
     background-color: rgb(34, 34, 34);
     font-size: calc(var(--buttonL) / 2);
     min-height: calc((var(--y) - (var(--buttonL) * 5 + var(--gap) * 4) - var(--gap)) * 1.5);
