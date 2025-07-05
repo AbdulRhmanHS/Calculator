@@ -258,6 +258,10 @@ expression.addEventListener('keydown', (event) => {
         event.preventDefault();
         insertAtCaret('÷');
     }
+    if (event.key === '\\') {
+        event.preventDefault();
+        insertAtCaret('√(');
+    }
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the default behavior of adding a new line
         if (isNumber(evaluate(expression.textContent))) result.textContent = '= ' + evaluate(expression.textContent);
