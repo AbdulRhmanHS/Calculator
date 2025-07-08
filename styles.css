@@ -16,7 +16,7 @@ body {
     justify-content: center;
 }
 :root {
- --y: 80vh;
+ --y: 75dvh;
  --x: calc(var(--y) * 0.7);
  --gap: calc(var(--y) / 50);
  --buttonL: calc(var(--y) / 8);  
